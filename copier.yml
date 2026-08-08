@@ -1,0 +1,67 @@
+---
+_subdirectory: template
+
+project_name:
+  type: str
+  help: Name of the new project
+  default: my-bash-project
+
+author_name:
+  type: str
+  help: Author name
+  default: Your Name
+
+author_email:
+  type: str
+  help: Author email address
+  default: your.email@example.com
+
+repo_owner:
+  type: str
+  help: GitHub/GitLab repository owner (username or organization)
+  default: your_github_username
+
+project_description:
+  type: str
+  help: A brief description of the project
+  default: ""
+
+main_script:
+  type: str
+  help: Name of the main script file
+  default: script.sh
+
+prerequisites:
+  type: str
+  help: Custom prerequisites text (leave empty for defaults)
+  default: ""
+
+install_instructions:
+  type: str
+  help: Custom installation instructions (leave empty for defaults)
+  default: ""
+
+usage_instructions:
+  type: str
+  help: Custom usage instructions (leave empty for defaults)
+  default: ""
+
+license:
+  type: str
+  help: License information
+  default: "This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details."
+
+variables:
+  type: yaml
+  help: List of environment variables for the script (YAML format)
+  default: ""
+
+examples:
+  type: yaml
+  help: List of usage examples (YAML format)
+  default: ""
+
+code_style_guidelines:
+  type: str
+  help: Custom code style guidelines (leave empty for defaults)
+  default: ""

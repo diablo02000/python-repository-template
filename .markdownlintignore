@@ -1,0 +1,40 @@
+# Files and directories to ignore for markdownlint
+# Add patterns here that should be excluded from markdown linting
+
+# Change log files (often have different formatting)
+CHANGELOG.md
+
+# Template directory (has its own markdownlint config)
+template/
+
+# Generated files
+**/node_modules/**
+**/vendor/**
+**/dist/**
+**/build/**
+
+# IDE and editor directories
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Git and version control
+.git/
+.gitignore
+
+# License files (often have specific formatting requirements)
+LICENSE
+LICENSE*
+
+# Configuration files
+*.yaml
+*.yml
+*.json
+
+# Ruby files
+*.rb
+
+# Temporary files
+*.tmp
+*.temp

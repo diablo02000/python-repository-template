@@ -1,0 +1,84 @@
+# See https://pre-commit.com for more information
+# See https://pre-commit.com/hooks.html for more hooks
+# Optimized pre-commit configuration for copier template repository (root level)
+repos:
+  # Documentation formatting
+  - repo: https://github.com/thlorenz/doctoc
+    rev: v2.3.0
+    hooks:
+      - id: doctoc
+        name: Update TOC in markdown
+        files: \.md$
+        args: [--title="**Table of Contents**", --maxlevel=3]
+
+  # Markdown linting with official CLI (compatible with markdownlint.rb)
+  - repo: https://github.com/igorshubovych/markdownlint-cli
+    rev: v0.42.0
+    hooks:
+      - id: markdownlint
+        name: Lint markdown files
+        files: \.md$
+        args: [--ignore-path=.markdownlintignore]
+
+  # YAML validation (for copier.yml, workflows, etc.)
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: check-yaml
+        name: Validate YAML files
+        files: \.(yaml|yml)$
+
+      - id: check-json
+        name: Validate JSON files
+        files: \.json$
+
+      - id: check-added-large-files
+        name: Prevent large files
+        args: [--maxkb=500]
+
+  # Security: Detect secrets and hardcoded credentials
+  - repo: https://github.com/gitleaks/gitleaks
+    rev: v8.30.1
+    hooks:
+      - id: gitleaks
+        name: Detect secrets
+        args: [ --staged, --verbose]
+
+  # Spelling checker
+  - repo: https://github.com/codespell-project/codespell
+    rev: v2.4.1
+    hooks:
+      - id: codespell
+        name: Check spelling
+        files: \.(md|txt|rb|yaml|yml|json)$
+        args: [--ignore-words=.codespellignore]
+
+  # GitHub Actions linting
+  - repo: https://github.com/rhysd/actionlint
+    rev: v1.7.9
+    hooks:
+      - id: actionlint
+        name: Lint GitHub Actions
+        files: \.github/workflows/.*\.ya?ml$
+        pass_filenames: true
+
+  # General file checks
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: trailing-whitespace
+        name: Trim trailing whitespace
+        files: \.(md|txt|rb|yaml|yml|json)$
+        args: [--markdown-linebreak-ext=md]
+
+      - id: end-of-file-fixer
+        name: Ensure files end with newline
+        files: \.(md|txt|rb|yaml|yml|json)$
+
+  # Commit message validation with conventional commits
+  - repo: https://github.com/commitizen-tools/commitizen
+    rev: v4.10.0
+    hooks:
+      - id: commitizen
+        name: Check commit message
+        stages: [commit-msg]
