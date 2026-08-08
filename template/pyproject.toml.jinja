@@ -1,0 +1,99 @@
+[project]
+name = "{{ project_name }}"
+version = "0.0.1"
+description = "Add your description here"
+readme = "README.md"
+license = { text = "MIT" }
+authors = [
+    { name = "{{author_name}}", email = "{{author_email}}" }
+]
+requires-python = ">=3.12"
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+]
+keywords = [
+    "{{ project_name }}",
+]
+dependencies = []
+
+[dependency-groups]
+dev = [
+    "mypy>=1.10.0",
+    "pytest>=8.0.0",
+    "pytest-cov>=5.0.0",
+    "ruff>=0.4.0",
+]
+docs = [
+    "mkdocs>=1.5.0",
+    "mkdocs-material>=9.5.0",
+]
+
+[project.scripts]
+{{project_name}} = "{{project_name}}.main:main"
+
+[project.urls]
+Homepage = "https://github.com/{{repo_owner}}/{{project_name}}"
+Documentation = "https://github.com/{{repo_owner}}/{{project_name}}#readme"
+Repository = "https://github.com/{{repo_owner}}/{{project_name}}"
+Issues = "https://github.com/{{repo_owner}}/{{project_name}}/issues"
+
+[build-system]
+requires = ["uv_build>=0.12.2,<0.13.0"]
+build-backend = "uv_build"
+
+[tool.pytest.ini_options]
+# Run pytest with all our checkers, and don't spam us with massive tracebacks on error
+addopts = """
+    --tb=native -vv
+    """
+# https://iscinumpy.gitlab.io/post/bound-version-constraints/#watch-for-warnings
+filterwarnings = "error"
+# Doctest python code in docs, python code in src docstrings, test functions in tests
+testpaths = "docs src tests"
+
+[tool.coverage.run]
+patch = ["subprocess"]
+data_file = "/tmp/{{ project_name }}.coverage"
+
+[tool.coverage.paths]
+# Tests are run from installed location, map back to the src directory
+source = ["src", "**/site-packages/"]
+
+[tool.ruff]
+src = ["src", "tests"]
+line-length = 88
+target-version = "py312"
+
+# Enable all rules that ruff can handle (replaces black, isort, pyupgrade, bandit, flake8, etc.)
+lint.select = [
+    "ALL",
+]
+lint.ignore = [
+    "S101",    # Allow assert statements
+    "COM812",  # Conflicts with ruff format
+    "ISC001",  # Conflicts with ruff format
+    "E501",    # Line length handled by black/ruff-format
+]
+
+# Enable formatting (replaces black and isort)
+format.enabled = true
+format.indent-style = "space"
+format.line-ending = "auto"
+
+[tool.mypy]
+python_version = "3.12"
+warn_return_any = true
+warn_unused_configs = true
+ignore_missing_imports = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+check_untyped_defs = true
+strict_optional = true
+warn_redundant_casts = true
+warn_unused_ignores = true

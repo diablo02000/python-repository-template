@@ -1,0 +1,59 @@
+# Files and directories to ignore for markdownlint
+# Add patterns here that should be excluded from markdown linting
+
+# Change log files (often have different formatting)
+CHANGELOG.md
+CHANGELOG/*
+
+# Generated files
+**/node_modules/**
+**/vendor/**
+**/dist/**
+**/build/**
+
+# IDE and editor directories
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Git and version control
+.git/
+.gitignore
+
+# License files (often have specific formatting requirements)
+LICENSE
+LICENSE*
+
+# Template files
+*.jinja
+*.jinja2
+
+# Configuration files that might contain markdown
+*.yaml
+*.yml
+*.json
+*.toml
+
+# Shell scripts (might contain markdown in comments)
+*.sh
+*.bash
+
+# Test files
+**/tests/**
+**/test_*/
+
+# Coverage reports
+**/coverage/**
+*.lcov
+
+# Dependency lock files
+*.lock
+yarn.lock
+package-lock.json
+composer.lock
+poetry.lock
+
+# Temporary files
+*.tmp
+*.temp

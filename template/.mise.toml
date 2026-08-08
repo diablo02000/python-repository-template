@@ -1,0 +1,20 @@
+[tools]
+prek = "latest"
+python = "3.12"
+uv = "latest"
+
+[tasks]
+# Test tasks
+test = "uv run pytest --cov --cov-report=term-missing"
+test-unit = "uv run pytest"
+test-coverage = "uv run pytest --cov --cov-report=html --cov-report=term-missing"
+
+# Linting and formatting
+lint = "uv run ruff check . && uv run mypy ."
+format = "uv run ruff check --fix . && uv run ruff format ."
+
+# Build and setup
+build = "uv build"
+setup = "uv sync --all-extras && pre-commit install"
+clean = "rm -rf dist/ build/ *.egg-info/ .pytest_cache/ .mypy_cache/ .ruff_cache/"
+

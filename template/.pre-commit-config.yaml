@@ -1,0 +1,109 @@
+# See https://pre-commit.com for more information
+# See https://pre-commit.com/hooks.html for more hooks
+# Optimized pre-commit configuration for Python projects
+repos:
+  # Python code formatting and linting with ruff (replaces black, isort, pyupgrade, bandit)
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.5.7
+    hooks:
+      - id: ruff
+        name: Lint and format with ruff
+        files: \.pyi?$
+        args: [--fix, --show-fixes]
+
+      - id: ruff-format
+        name: Format code with ruff
+        files: \.pyi?$
+
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v1.12.1
+    hooks:
+      - id: mypy
+        name: Type check with mypy
+        files: \.py$
+        pass_filenames: true
+        args: [--python-version=3.12, --warn-return-any, --warn-unused-configs]
+
+  - repo: https://github.com/pre-commit/mirrors-pytest
+    rev: v8.3.5
+    hooks:
+      - id: pytest
+        name: Run pytest tests
+        entry: uv run pytest
+        language: system
+        pass_filenames: false
+        stages: [pre-push]
+
+  # Documentation formatting
+  - repo: https://github.com/thlorenz/doctoc
+    rev: v2.3.0
+    hooks:
+      - id: doctoc
+        name: Update TOC in markdown
+        files: (README|CONTRIBUTING|CHANGELOG)\.md$
+        args: [--title="**Table of Contents**", --maxlevel=3]
+
+  # Markdown linting with official CLI
+  - repo: https://github.com/igorshubovych/markdownlint-cli
+    rev: v0.42.0
+    hooks:
+      - id: markdownlint
+        name: Lint markdown files
+        files: \.md$
+        args: [--ignore-path=.markdownlintignore]
+
+  # Security: Detect secrets and hardcoded credentials
+  - repo: https://github.com/gitleaks/gitleaks
+    rev: v8.24.2
+    hooks:
+      - id: gitleaks
+        name: Detect secrets
+        description: Prevent hardcoded credentials
+        args: [ --staged, --verbose]
+
+  # Spelling checker
+  - repo: https://github.com/codespell-project/codespell
+    rev: v2.4.1
+    hooks:
+      - id: codespell
+        name: Check spelling
+        files: \.(md|txt|py|toml|yaml|yml)$
+        args: ["--ignore-words=.codespellignore", "--skip=CHANGELOG.md,*.lock"]
+
+  # GitHub Actions linting (only runs if workflow files exist)
+  - repo: https://github.com/rhysd/actionlint
+    rev: v1.7.9
+    hooks:
+      - id: actionlint
+        name: Lint GitHub Actions
+        files: \.github/workflows/.*\.ya?ml$
+        pass_filenames: true
+
+  # General file checks
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: trailing-whitespace
+        name: Trim trailing whitespace
+        files: \.(py|md|txt|yaml|yml|json|toml)$
+        args: [--markdown-linebreak-ext=md]
+
+      - id: end-of-file-fixer
+        name: Ensure files end with newline
+        files: \.(py|md|txt|yaml|yml|json|toml)$
+
+      - id: check-yaml
+        name: Validate YAML files
+        files: \.(yaml|yml)$
+
+      - id: check-added-large-files
+        name: Prevent large files
+        args: [--maxkb=500]
+
+  # Commit message validation with conventional commits
+  - repo: https://github.com/commitizen-tools/commitizen
+    rev: v4.10.0
+    hooks:
+      - id: commitizen
+        name: Check commit message
+        stages: [commit-msg]

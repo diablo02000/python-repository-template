@@ -1,0 +1,229 @@
+# {{ project_name }}
+
+![Python](https://img.shields.io/badge/python-3.12%2B-blue?logo=python&logoColor=white)
+{% if repo_owner %}[![GitHub Tag](https://img.shields.io/github/v/tag/{{repo_owner}}/{{project_name}})](https://github.com/{{repo_owner}}/{{project_name}}){% endif %}
+[![pytest](https://img.shields.io/badge/test-pytest-0A9EDC?logo=pytest)](https://docs.pytest.org/)
+[![ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
+[![mypy](https://img.shields.io/badge/type-mypy-316192?logo=mypy)](https://mypy-lang.org/)
+[![semantic-release: angular](https://img.shields.io/badge/semantic--release-angular-e10079?logo=semantic-release)](https://github.com/semantic-release/semantic-release)
+[![Copier](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/copier-org/copier/master/img/badge/badge-grayscale-inverted-border-orange.json)](https://github.com/copier-org/copier)
+
+{% if project_description %}{{ project_description }}{% endif %}
+
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+- [Description](#description)
+- [Features](#features)
+- [Prerequisites](#prerequisites)
+- [Install](#install)
+- [How to Use](#how-to-use)
+{% if variables %}- [Variables](#variables)
+{% endif %}{% if examples %}- [Examples](#examples)
+{% endif %}- [Development](#development)
+  - [Setup](#setup)
+  - [Running Tests](#running-tests)
+  - [Project Structure](#project-structure)
+- [Contributing](#contributing)
+- [License](#license)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
+## Description
+
+{% if project_description %}{{ project_description }}
+
+{% else %}A bash script project for {{ project_name }}.
+
+{% endif %}## Features
+
+- Easy to install and use
+- Well-documented
+- Tested with pytest
+- Type-checked with mypy
+- Linted and formatted with ruff
+- Managed with mise for development dependencies
+
+## Prerequisites
+
+{% if prerequisites %}{{ prerequisites }}
+
+{% else %}Before you begin, ensure you have the following requirements met:
+
+- **Python** (version 3.12 or higher recommended)
+- **Git** (for version control)
+- **uv** (for package management) - optional, can use pip instead
+
+{% endif %}## Install
+
+{% if install_instructions %}{{ install_instructions }}
+
+{% else %}### Option 1: Install with pip
+
+```bash
+# Install the package directly from GitHub
+pip install git+https://github.com/{{repo_owner}}/{{project_name}}.git
+```
+
+### Option 2: Install with uv
+
+```bash
+# Install the package using uv
+uv pip install git+https://github.com/{{repo_owner}}/{{project_name}}.git
+```
+
+### Option 3: Clone Repository
+
+```bash
+# Clone the repository
+git clone https://github.com/{{repo_owner}}/{{project_name}}.git
+
+# Navigate to the project directory
+cd {{project_name}}
+
+# Install in development mode
+uv sync --all-extras
+
+# Or using pip
+pip install -e .
+```
+
+{% endif %}## How to Use
+
+{% if usage_instructions %}{{ usage_instructions }}
+
+{% else %}### Basic Usage
+
+```bash
+# Run the main script
+{{project_name}} --help
+
+# Or run the module directly
+python -m {{project_name}}
+```
+
+### Command Line Options
+
+```bash
+# Show help
+{{project_name}} --help
+
+# Show version
+{{project_name}} --version
+```
+
+{% endif %}{% if variables %}
+## Variables
+
+The following environment variables can be used to configure the script:
+
+| Variable | Description | Default |
+|----------|-------------|---------|
+{% for var in variables %}| `{{var.name}}` | {{var.description|default('')}} | {{var.default|default('')}} |
+{% endfor %}
+
+{% endif %}{% if examples %}
+## Examples
+
+{% for example in examples %}
+### {{example.title}}
+
+{{example.description}}
+
+```bash
+{{example.command}}
+```
+
+{% endfor %}
+
+{% endif %}## Development
+
+This project uses [`mise`](https://mise.jdx.dev/) to manage tools and automate tasks like running unit tests and pre-commit hooks.
+
+### Setup
+
+1. Install `mise` (if not already installed):
+
+   ```bash
+   curl https://mise.run | sh
+   ```
+
+2. Restart your shell or source the mise activation script:
+
+   ```bash
+   source ~/.local/share/mise/mise.sh
+   ```
+
+3. Install the required tools and dependencies:
+
+   ```bash
+   mise install
+   ```
+
+4. Install pre-commit hooks (if available):
+
+   ```bash
+   mise run setup
+   ```
+
+### Running Tests
+
+This project uses [pytest](https://docs.pytest.org/) for testing:
+
+```bash
+# Run all tests
+mise run test
+
+# Run all tests without coverage
+mise run test-unit
+
+# Run tests with coverage report
+mise run test-coverage
+
+# Run specific test file
+pytest tests/test_example.py
+
+# Run tests with verbose output
+pytest -v
+
+# Run tests with coverage
+pytest --cov --cov-report=term-missing
+```
+
+### Project Structure
+
+```
+.
+├── src/                           # Source files
+│   └── {{project_name}}/          # Python package
+│       ├── __init__.py           # Package initialization
+│       ├── main.py               # Main entry point
+│       └── ...                   # Additional modules
+├── tests/                         # Test files
+│   ├── __init__.py               # Test package initialization
+│   ├── conftest.py               # Pytest fixtures
+│   ├── test_*.py                 # Test files
+│   └── integration/              # Integration tests
+├── pyproject.toml                 # Project configuration
+├── README.md                       # Project documentation
+├── .mise.toml                     # mise configuration
+├── .pre-commit-config.yaml        # Pre-commit hooks
+├── .github/                       # GitHub configuration
+│   └── workflows/                 # CI/CD workflows
+│       ├── pytest.yml            # Python test workflow
+│       └── ...                   # Other workflows
+└── LICENSE                        # License file
+```
+
+## Contributing
+
+We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for details on how to get started.
+
+## License
+
+{% if license %}{{ license }}
+
+{% else %}This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+{% endif %}
+

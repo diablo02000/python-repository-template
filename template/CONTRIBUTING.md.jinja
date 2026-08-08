@@ -1,0 +1,163 @@
+# Contributing
+
+Thank you for your interest in contributing to {{ project_name }}! We welcome contributions from everyone.
+
+Before submitting a pull request, please ensure all checks pass by running the following commands:
+
+```bash
+# Install development dependencies
+mise install
+
+# Run unit tests
+mise run test
+
+# Run linting (if available)
+mise run lint
+```
+
+All pull requests are reviewed as soon as possible.
+
+## Getting Started
+
+1. **Fork the repository** on GitHub
+2. **Clone your fork** locally:
+   ```bash
+   git clone https://github.com/your-username/{{ project_name }}.git
+   cd {{ project_name }}
+   ```
+3. **Set up the development environment**:
+   ```bash
+   mise install
+   ```
+4. **Create a feature branch**:
+   ```bash
+   git checkout -b feature/your-feature-name
+   ```
+
+## Development Workflow
+
+### Making Changes
+
+- Make your changes in your feature branch
+- Keep your changes focused and atomic
+- Write clear, descriptive commit messages
+- Add tests for new functionality or bug fixes
+
+### Running Tests
+
+This project uses [bats](https://github.com/bats-core/bats-core) for testing:
+
+```bash
+# Run all tests
+mise run test
+
+# Run specific test file
+bats tests/test_filename.bats
+
+# Run tests with verbose output
+bats -v tests/
+```
+
+### Code Style
+
+{% if code_style_guidelines %}{{ code_style_guidelines }}
+
+{% else %}- Follow consistent indentation (2 or 4 spaces, as used in the project)
+- Use meaningful variable and function names
+- Add comments for complex logic
+- Keep shell scripts POSIX-compatible when possible
+- Use `shellcheck` to lint your shell scripts:
+  ```bash
+  mise run lint
+  ```
+
+{% endif %}
+
+## Commit Message Conventions
+
+This project uses [conventional commits](https://www.conventionalcommits.org/) for automated releases. Please follow these commit message conventions:
+
+| Commit Message Example | Release Type |
+|---|---|
+| `feat(pencil): Add fatal method` | Feature Release |
+| `fix(pencil): Add newline after message Bug` | Bug Fix Release |
+| `doc: Update readme` | Documentation Update |
+| `break: Rename method` | Breaking/Major Release |
+| `refactor: Improve error handling` | No Release (internal improvement) |
+| `chore: Update dependencies` | No Release (maintenance) |
+| `test: Add unit tests` | No Release (testing) |
+
+### Commit Message Format
+
+```
+type(scope): subject
+
+body
+
+footer
+```
+
+- **type**: One of `feat`, `fix`, `doc`, `style`, `refactor`, `test`, `chore`, `break`
+- **scope**: Optional, specifies the part of the codebase affected (e.g., `script`, `tests`, `docs`)
+- **subject**: Brief description of the change (50 characters or less)
+- **body**: Detailed description (72 characters per line)
+- **footer**: Optional, for breaking changes or issue references
+
+### Examples
+
+```bash
+# Feature commit
+git commit -m "feat(script): Add new command line option"
+
+# Bug fix commit
+git commit -m "fix(parser): Handle empty input correctly"
+
+# Documentation commit
+git commit -m "doc: Update installation instructions"
+
+# Breaking change commit
+git commit -m "break(api): Remove deprecated function\n\nBREAKING CHANGE: The old function is no longer supported"
+```
+
+## Pull Request Guidelines
+
+1. **Title**: Use a clear, descriptive title that follows conventional commit format
+2. **Description**: Provide a detailed description of:
+   - What the PR does
+   - Why it's needed
+   - Any related issues (use `Fixes #123` or `Closes #456`)
+   - Screenshots or examples if applicable
+3. **Linked Issues**: Reference any related GitHub issues
+4. **Tests**: Ensure all existing tests pass and add new tests for your changes
+5. **Documentation**: Update documentation if your changes affect usage
+
+## Reporting Issues
+
+When reporting issues, please include:
+
+- A clear description of the problem
+- Steps to reproduce the issue
+- Expected vs. actual behavior
+- Your environment (OS, shell version, etc.)
+- Relevant code snippets or error messages
+
+## Code Review Process
+
+1. All pull requests require at least one approval from a maintainer
+2. CI checks must pass before merging
+3. We aim to review pull requests within 48 hours
+4. We may suggest changes or improvements - this is part of the collaborative process
+
+## Community
+
+- Join our [Discussions](https://github.com/{{repo_owner}}/{{project_name}}/discussions) for questions and ideas
+- Check out our [GitHub Issues](https://github.com/{{repo_owner}}/{{project_name}}/issues) for known bugs and feature requests
+
+## Resources
+
+- [Conventional Commits](https://www.conventionalcommits.org/)
+- [ShellCheck](https://www.shellcheck.net/) - Shell script static analysis tool
+- [Bats](https://github.com/bats-core/bats-core) - Bash Automated Testing System
+- [mise](https://mise.jdx.dev/) - Development environment manager
+
+Thank you for contributing to {{ project_name }}! Your contributions help make this project better for everyone.
