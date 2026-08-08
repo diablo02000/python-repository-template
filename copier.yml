@@ -4,7 +4,7 @@ _subdirectory: template
 project_name:
   type: str
   help: Name of the new project
-  default: my-bash-project
+  default: my-python-project
 
 author_name:
   type: str
@@ -25,11 +25,6 @@ project_description:
   type: str
   help: A brief description of the project
   default: ""
-
-main_script:
-  type: str
-  help: Name of the main script file
-  default: script.sh
 
 prerequisites:
   type: str
